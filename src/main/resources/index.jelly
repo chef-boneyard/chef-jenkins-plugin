@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+    This plugin integrates <a href="https://www.chef.io/automate/">Chef Automate</a> version 2.0 and later with Jenkins.
+</j:jelly>
