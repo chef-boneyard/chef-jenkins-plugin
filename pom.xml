@@ -33,5 +33,10 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+		<dependency>
+			<groupId>io.jenkins.blueocean</groupId>
+			<artifactId>blueocean</artifactId>
+			<version>1.2.4</version>
+		</dependency>
 	</dependencies>
 </project>
