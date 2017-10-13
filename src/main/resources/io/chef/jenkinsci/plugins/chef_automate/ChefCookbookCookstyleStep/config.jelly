@@ -1,0 +1,13 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <j:set var="installations" value="${descriptor.getInstallations()}"/>
+  <j:if test="${not empty(installations)}">
+    <f:entry title="${%ChefDK installation}">
+      <select class="setting-input" name="chefDKName">
+        <j:forEach var="inst" items="${installations}">
+          <f:option value="${inst.name}" selected="${inst.name==instance.chefDKName}">${inst.name}</f:option>
+        </j:forEach>
+      </select>
+    </f:entry>
+  </j:if>
+</j:jelly>
