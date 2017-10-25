@@ -1,6 +1,7 @@
 package io.chef.jenkinsci.plugins.chef_automate;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import hudson.AbortException;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
@@ -22,12 +23,12 @@ import java.util.Set;
 /**
  * A simple echo back statement.
  */
-public class ChefCookbookLintStep extends Step {
+public class ChefCookbookFunctionalStep extends Step {
 
     private String installation;
 
     @DataBoundConstructor
-    public ChefCookbookLintStep() {}
+    public ChefCookbookFunctionalStep() {}
 
     @DataBoundSetter
     public void setInstallation(String installation) {
@@ -48,12 +49,12 @@ public class ChefCookbookLintStep extends Step {
 
         @Override
         public String getFunctionName() {
-            return "chef_cookbook_lint";
+            return "chef_cookbook_functional";
         }
 
         @Override
         public String getDisplayName() {
-            return "Chef Cookbook Lint";
+            return "Chef Cookbook Functional";
         }
 
         @Override
@@ -62,7 +63,7 @@ public class ChefCookbookLintStep extends Step {
         }
     }
 
-    public static class Execution extends SynchronousStepExecution<Boolean> {
+    public static class Execution extends SynchronousStepExecution<Void> {
         
         @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
         private transient final String installation;
@@ -72,17 +73,19 @@ public class ChefCookbookLintStep extends Step {
             this.installation = installation;
         }
 
-        @Override protected Boolean run() throws Exception {
-            ChefDKInstallation chefdk = ChefDKInstallation.getInstallation(installation);
+        @Override protected Void run() throws Exception {
             ArgumentListBuilder command = new ArgumentListBuilder();
-            command.addTokenized(chefdk.getHome() + "/foodcritic .");
+            command.addTokenized("chef exec kitchen test --concurrency=5 --destroy=always");
 
             Launcher launcher =  getContext().get(Launcher.class);
             ProcStarter p = launcher.launch()
               .pwd(getContext().get(FilePath.class))
               .cmds(command)
               .stdout(getContext().get(TaskListener.class));
-            return p.join() == 0;
+            if (p.join() != 0) {
+              throw new AbortException("Test Kitchen Failed");
+            }
+            return null;
         }
 
         private static final long serialVersionUID = 1L;

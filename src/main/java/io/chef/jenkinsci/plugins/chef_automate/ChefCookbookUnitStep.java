@@ -5,9 +5,15 @@ import hudson.AbortException;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.Launcher.ProcStarter;
 import hudson.model.TaskListener;
 import hudson.util.ArgumentListBuilder;
-import org.jenkinsci.plugins.workflow.steps.*;
+
+import org.jenkinsci.plugins.workflow.steps.Step;
+import org.jenkinsci.plugins.workflow.steps.StepContext;
+import org.jenkinsci.plugins.workflow.steps.StepDescriptor;
+import org.jenkinsci.plugins.workflow.steps.StepExecution;
+import org.jenkinsci.plugins.workflow.steps.SynchronousStepExecution;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
@@ -15,17 +21,14 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * Custom Jenkins pipeline step which performs linting for Chef
- * cookbooks using cookstyle from the ChefDK.
+ * A simple echo back statement.
  */
-public class ChefCookbookCookstyleStep extends Step {
-
-    private static final long serialVersionUID = 1L;
+public class ChefCookbookUnitStep extends Step {
 
     private String installation;
 
     @DataBoundConstructor
-    public ChefCookbookCookstyleStep() {}
+    public ChefCookbookUnitStep() {}
 
     @DataBoundSetter
     public void setInstallation(String installation) {
@@ -38,8 +41,7 @@ public class ChefCookbookCookstyleStep extends Step {
 
     @Override
     public StepExecution start(StepContext context) throws Exception {
-
-        return new ChefCookbookCookstyleStep.Execution(installation, context);
+        return new Execution(installation, context);
     }
 
     @Extension
@@ -47,12 +49,12 @@ public class ChefCookbookCookstyleStep extends Step {
 
         @Override
         public String getFunctionName() {
-            return "chef_cookbook_cookstyle";
+            return "chef_cookbook_unit";
         }
 
         @Override
         public String getDisplayName() {
-            return "Chef Cookbook Lint (Cookstyle)";
+            return "Chef Cookbook Unit";
         }
 
         @Override
@@ -62,30 +64,32 @@ public class ChefCookbookCookstyleStep extends Step {
     }
 
     public static class Execution extends SynchronousStepExecution<Void> {
-
+        
         @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
         private transient final String installation;
 
         Execution(String installation, StepContext context) {
-
             super(context);
             this.installation = installation;
         }
 
         @Override protected Void run() throws Exception {
             ArgumentListBuilder command = new ArgumentListBuilder();
-            command.addTokenized("chef exec cookstyle . --format progress");
+            command.addTokenized("chef exec rspec --format progress --format RspecJunitFormatter --output rspec_junit.xml");
 
             Launcher launcher =  getContext().get(Launcher.class);
-
-            Launcher.ProcStarter p = launcher.launch()
-                    .pwd(getContext().get(FilePath.class))
-                    .cmds(command)
-                    .stdout(getContext().get(TaskListener.class));
+            ProcStarter p = launcher.launch()
+              .pwd(getContext().get(FilePath.class))
+              .cmds(command)
+              .stdout(getContext().get(TaskListener.class));
             if (p.join() != 0) {
               throw new AbortException("Chefspec Failed");
             }
             return null;
         }
+
+        private static final long serialVersionUID = 1L;
+
     }
+
 }

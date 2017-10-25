@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -62,7 +63,7 @@ public class ChefDKInstallation extends ToolInstallation
         throw new IOException("ChefDK not found");
     }
 
-	@Extension
+	@Extension @Symbol("chefdk")
     public static class DescriptorImpl extends ToolDescriptor<ChefDKInstallation> {
 
         public DescriptorImpl() {
