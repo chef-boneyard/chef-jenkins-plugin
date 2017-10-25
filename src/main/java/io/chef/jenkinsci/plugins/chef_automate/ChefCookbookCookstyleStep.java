@@ -73,17 +73,25 @@ public class ChefCookbookCookstyleStep extends Step {
         }
 
         @Override protected Void run() throws Exception {
-            ArgumentListBuilder command = new ArgumentListBuilder();
-            command.addTokenized("chef exec cookstyle . --format progress");
+            try
+            {
+                ArgumentListBuilder command = new ArgumentListBuilder();
+                command.addTokenized("chef exec cookstyle . --format progress");
 
-            Launcher launcher =  getContext().get(Launcher.class);
+                Launcher launcher =  getContext().get(Launcher.class);
 
-            Launcher.ProcStarter p = launcher.launch()
-                    .pwd(getContext().get(FilePath.class))
-                    .cmds(command)
-                    .stdout(getContext().get(TaskListener.class));
-            if (p.join() != 0) {
-              throw new AbortException("Chefspec Failed");
+                Launcher.ProcStarter p = launcher.launch()
+                        .pwd(getContext().get(FilePath.class))
+                        .cmds(command)
+                        .stdout(getContext().get(TaskListener.class));
+                if (p.join() != 0) {
+                throw new AbortException("Chefspec Failed");
+                }
+
+            } catch (Exception ex) {
+
+                System.out.println("Trying run Chef Cookstyle. Could not do that because of: " + ex.getLocalizedMessage());
+
             }
             return null;
         }
