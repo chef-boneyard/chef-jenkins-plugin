@@ -4,6 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
+import hudson.AbortException;
 import hudson.model.TaskListener;
 import hudson.util.ArgumentListBuilder;
 import org.jenkinsci.plugins.workflow.steps.*;
@@ -41,33 +42,55 @@ public abstract class ChefCookbookStep extends Step {
     @Override
     public abstract StepExecution start(StepContext context) throws Exception;
 
-    // @Extension
-    // public static class DescriptorImpl extends StepDescriptor {
+    @Extension
+    public static class DescriptorImpl extends StepDescriptor {
 
-    //     @Override
-    //     public String getFunctionName() {
-    //         return "chef_cookbook";
-    //     }
+        @Override
+        public String getFunctionName() {
+            return "chef_cookbook";
+        }
 
-    //     @Override
-    //     public String getDisplayName() {
-    //         return "Chef Cookbook";
-    //     }
+        @Override
+        public String getDisplayName() {
+            return "Chef Cookbook";
+        }
 
-    //     @Override
-    //     public Set<? extends Class<?>> getRequiredContext() {
-    //         return Collections.singleton(TaskListener.class);
-    //     }
-    // }
+        @Override
+        public Set<? extends Class<?>> getRequiredContext() {
+            return Collections.singleton(TaskListener.class);
+        }
+    }
 
-    public static void getArgumentList(ArgumentListBuilder alb);
+    @Override
+    public abstract StepExecution start(StepContext context) throws Exception;
 
-    public static class Execution extends SynchronousStepExecution<Void> {
+    @Extension
+    public static class Descriptor2Impl extends StepDescriptor {
+
+        @Override
+        public String getFunctionName() {
+            return "blah_blah";
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "blah_blah";
+        }
+
+        @Override
+        public Set<? extends Class<?>> getRequiredContext() {
+            return Collections.singleton(TaskListener.class);
+        }
+    }
+
+    abstract public static class ChefExecution extends SynchronousStepExecution<Void> {
 
         @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
         private transient final String installation;
 
-        Execution(String installation, StepContext context) {
+        abstract protected String getCommandString();
+
+        ChefExecution(String installation, StepContext context) {
 
             super(context);
             this.installation = installation;
@@ -75,13 +98,7 @@ public abstract class ChefCookbookStep extends Step {
 
         @Override protected Void run() throws Exception {
 
-            ChefDKInstallation chefdk = ChefDKInstallation.getInstallation(installation);
-
-            ArgumentListBuilder command = new ArgumentListBuilder();
-
-            ChefCookbookStep.getArgumentList(command);
-
-            command.addTokenized(chefdk.getHome() + "/cookstyle .");
+            ArgumentListBuilder command = new ArgumentListBuilder(getCommandString());
 
             Launcher launcher =  getContext().get(Launcher.class);
 
@@ -90,6 +107,10 @@ public abstract class ChefCookbookStep extends Step {
                     .cmds(command)
                     .stdout(getContext().get(TaskListener.class));
 
+            if (p.join() != 0) {
+                throw new AbortException("Chefspec Failed");
+            }
+          
             return null;
         }
 

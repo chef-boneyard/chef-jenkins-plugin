@@ -30,7 +30,7 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
 
     @Override
     public StepExecution start(StepContext context) throws Exception {
-        return new Execution(m_sInstallation, context);
+        return new UnitExecution(m_sInstallation, context);
     }
 
     @Extension
@@ -52,32 +52,15 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
         }
     }
 
-    public static class Execution extends SynchronousStepExecution<Void> {
+    public static class UnitExecution extends ChefExecution {
         
-        @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
-        private transient final String installation;
-
-        Execution(String installation, StepContext context) {
-            super(context);
-            this.installation = installation;
+         UnitExecution(String installation, StepContext context) {
+            super(installation, context);
         }
 
-        @Override protected Void run() throws Exception {
-            ArgumentListBuilder command = new ArgumentListBuilder();
-            command.addTokenized("chef exec rspec --format progress --format RspecJunitFormatter --output rspec_junit.xml");
-
-            Launcher launcher =  getContext().get(Launcher.class);
-            ProcStarter p = launcher.launch()
-              .pwd(getContext().get(FilePath.class))
-              .cmds(command)
-              .stdout(getContext().get(TaskListener.class));
-            if (p.join() != 0) {
-              throw new AbortException("Chefspec Failed");
-            }
-            return null;
+        protected String getCommandString() {
+            return "chef exec rspec --format progress --format RspecJunitFormatter --output rspec_junit.xml";
         }
-
-        private static final long serialVersionUID = 1L;
 
     }
 
