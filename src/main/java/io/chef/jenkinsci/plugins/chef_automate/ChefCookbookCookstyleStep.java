@@ -61,39 +61,41 @@ public class ChefCookbookCookstyleStep extends Step {
         }
     }
 
-    public static class Execution extends SynchronousStepExecution<Void> {
+//    public static class Execution extends ChefCookbookStep.ChefxxxExecution {
 
-        @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
-        private transient final String installation;
+        // @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
+        // private transient final String installation;
 
-        Execution(String installation, StepContext context) {
+        // Execution(String installation, StepContext context) {
 
-            super(context);
-            this.installation = installation;
-        }
+        //     super(context);
+        //     this.installation = installation;
+        // }
 
-        @Override protected Void run() throws Exception {
-            try
-            {
-                ArgumentListBuilder command = new ArgumentListBuilder();
-                command.addTokenized("chef exec cookstyle . --format progress");
+        // @Override protected Void run() throws Exception {
+        //     try
+        //     {
+        //         ArgumentListBuilder command = new ArgumentListBuilder();
+        //         command.addTokenized("chef exec cookstyle . --format progress");
 
-                Launcher launcher =  getContext().get(Launcher.class);
+        //         Launcher launcher =  getContext().get(Launcher.class);
 
-                Launcher.ProcStarter p = launcher.launch()
-                        .pwd(getContext().get(FilePath.class))
-                        .cmds(command)
-                        .stdout(getContext().get(TaskListener.class));
-                if (p.join() != 0) {
-                throw new AbortException("Chefspec Failed");
-                }
+        //         Launcher.ProcStarter p = launcher.launch()
+        //                 .pwd(getContext().get(FilePath.class))
+        //                 .cmds(command)
+        //                 .stdout(getContext().get(TaskListener.class));
+        //         if (p.join() != 0) {
+        //         throw new AbortException("Chefspec Failed");
+        //         }
 
-            } catch (Exception ex) {
+        //     } catch (Exception ex) {
 
-                System.out.println("Trying run Chef Cookstyle. Could not do that because of: " + ex.getLocalizedMessage());
+        //         System.out.println("Trying run Chef Cookstyle. Could not do that because of: " + ex.getLocalizedMessage());
 
-            }
-            return null;
-        }
-    }
+        //     }
+        //     return null;
+        // }
+ //   }
+
+ 
 }

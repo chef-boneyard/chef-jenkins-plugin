@@ -23,25 +23,14 @@ import java.util.Set;
 /**
  * A simple echo back statement.
  */
-public class ChefCookbookUnitStep extends Step {
-
-    private String installation;
+public class ChefCookbookUnitStep extends ChefCookbookStep {
 
     @DataBoundConstructor
     public ChefCookbookUnitStep() {}
 
-    @DataBoundSetter
-    public void setInstallation(String installation) {
-        this.installation = installation;
-    }
-
-    public String getInstallation() {
-        return installation;
-    }
-
     @Override
     public StepExecution start(StepContext context) throws Exception {
-        return new Execution(installation, context);
+        return new Execution(m_sInstallation, context);
     }
 
     @Extension
