@@ -13,7 +13,7 @@ The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines
 - Git
 - Maven 3.5+
 - JDK 1.8+
-- [Github Personal Access Token] (https://github.com/blog/1509-personal-api-tokens) for the user with which you plan to log into the Jenkins console
+- [Github Personal Access Token](https://github.com/blog/1509-personal-api-tokens) for the user with which you plan to log into the Jenkins console
 
 ## Setting up [kitchen-dokken] (https://github.com/someara/kitchen-dokken)
 
