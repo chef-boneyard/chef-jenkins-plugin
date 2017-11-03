@@ -15,7 +15,7 @@ The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines
 - JDK 1.8+
 - [Github Personal Access Token](https://github.com/blog/1509-personal-api-tokens) for the user with which you plan to log into the Jenkins console
 
-## Setting up [kitchen-dokken] (https://github.com/someara/kitchen-dokken)
+## Setting up [kitchen-dokken](https://github.com/someara/kitchen-dokken)
 
 Kitchen-dokken is a driver for Chef Test Kitchen which enables rapid testing of Chef cookbooks using Docker. The Chef Automate Plugin installs kitchen-dokken automatically, but these setup steps help get everything ready to go.
 
@@ -31,7 +31,7 @@ $ source ~/.bash_profile
 
 ## Installing the Chef Automate Plugin
 
-While the plugin is in development, the easiest way to install and run it is via Maven using a local copy of the GitHub repository. Download the repository located at https://github.com/chef/chef-automate-plugin.git. You'll need the right Maven settings, so create a settings.xml file at ~/.m2 and add the following Jenkins profile. If you already have a settings.xml file, you only need to add the bits you're missing.
+While the plugin is in development, the easiest way to install and run it is via Maven using a local copy of the GitHub repository. Download the [repository](https://github.com/chef/chef-automate-plugin.git). You'll need the right Maven settings, so create a settings.xml file at ```~/.m2``` and add the following Jenkins profile. If you already have a settings.xml file, you only need to add the bits you're missing.
 
 ```<settings>
   <pluginGroups>
@@ -75,7 +75,7 @@ Build the plugin and run Jenkins:
 
 This command will build the Chef Automate plugin and launch Jenkins with the plugin installed. Copy the temporary admin password at the tail end of the Maven output; you'll need it to log in to the Jenkins console.
 
-Go to the Jenkins console [login screen] (http://localhost:8080/jenkins). At the login prompt, log in as admin using the temporary admin password located in the Maven build/run output. Once you're logged in, you can either continue as admin or let Jenkins walk you through the creation of your first admin user. Either choice is fine, because in this scenario Jenkins will run as your own user regardless of which user you use to log in to the Jenkins console.
+Go to the Jenkins console [login screen](http://localhost:8080/jenkins). At the login prompt, log in as admin using the temporary admin password located in the Maven build/run output. Once you're logged in, you can either continue as admin or let Jenkins walk you through the creation of your first admin user. Either choice is fine, because in this scenario Jenkins will run as your own user regardless of which user you use to log in to the Jenkins console.
 
 Install plugin runtime dependencies:
 
@@ -87,7 +87,7 @@ The Chef Automate Plugin supports different topologies, but the variation descri
 
 ## Creating the Test Cookbook Pipeline
 
-Go to the Jenkins console and click Open Blue Ocean in the left nav. Click New Pipeline on the ride side of the screen. Blue Ocean will walk you through the creation of a pipeline based on the Jenkinsfile in [test cookbook]:
+Go to the Jenkins console and click Open Blue Ocean in the left nav. Click New Pipeline on the ride side of the screen. Blue Ocean will walk you through the creation of a pipeline based on the Jenkinsfile in [test cookbook](needs url):
 
 - For code store, click GitHub
 - For organization, click Chef
