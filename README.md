@@ -3,7 +3,10 @@
 ## Getting Started
 
 The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines for Chef cookbooks visually using Jenkins' Blue Ocean plugin. Currently the Chef Automate plugin has unit testing, linting, and functional testing capabilities using the following custom steps:
-- Chef  
+- Chef Cookbook Unit
+- Chef Cookbook Lint (Foodcritic)
+- Chef Cookbook Lint (Cookstyle)
+- Chef Cookbook Functional
 
 ## Prerequisites
 
