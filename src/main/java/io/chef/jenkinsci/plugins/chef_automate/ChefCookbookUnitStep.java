@@ -1,21 +1,12 @@
 package io.chef.jenkinsci.plugins.chef_automate;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import hudson.AbortException;
 import hudson.Extension;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.Launcher.ProcStarter;
 import hudson.model.TaskListener;
-import hudson.util.ArgumentListBuilder;
 
-import org.jenkinsci.plugins.workflow.steps.Step;
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.jenkinsci.plugins.workflow.steps.StepDescriptor;
 import org.jenkinsci.plugins.workflow.steps.StepExecution;
-import org.jenkinsci.plugins.workflow.steps.SynchronousStepExecution;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
 
 import java.util.Collections;
 import java.util.Set;
@@ -30,7 +21,7 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
 
     @Override
     public StepExecution start(StepContext context) throws Exception {
-        return new UnitExecution(m_sInstallation, context);
+        return new UnitExecution(context);
     }
 
     @Extension
@@ -54,14 +45,15 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
 
     public static class UnitExecution extends ChefExecution {
         
-         UnitExecution(String installation, StepContext context) {
-            super(installation, context);
+         UnitExecution(StepContext context) {
+            super(context);
         }
 
         protected String getCommandString() {
             return "chef exec rspec --format progress --format RspecJunitFormatter --output rspec_junit.xml";
         }
 
+        private static final long serialVersionUID = 1L;
     }
 
 }
