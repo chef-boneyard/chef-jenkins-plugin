@@ -28,6 +28,7 @@ Then, add var KITCHEN_YAML to your .bash_profile (or equivalent):
 ```$ echo "export KITCHEN_YAML=.kitchen.yml" >> ~/.bash_profile
 $ source ~/.bash_profile
 ```
+Note that the KITCHEN_YAML variable expects a file, .kitchen.yml, at the root of your cookbook. The [test cookbook](need url) provides this file for you, so you may want to wait to establish this variable until you've downloaded the cookbook (or created a cookbook of your own which includes a .kitchen.yml).
 
 ## Installing the Chef Automate Plugin
 
@@ -89,7 +90,7 @@ The Chef Automate Plugin supports different topologies, but the variation descri
 
 Go to the Jenkins console and click Open Blue Ocean in the left nav. Click New Pipeline on the ride side of the screen. Blue Ocean will walk you through the creation of a pipeline based on the Jenkinsfile in [test cookbook](needs url):
 
-- For code store, click GitHub
+- For code store, click GitHub (you'll need the [Github Personal Access Token](https://github.com/blog/1509-personal-api-tokens) mentioned in the Prerequisites section in order to continue)
 - For organization, click Chef
 - For pipeline creation, click New Pipeline (from a single repository)
 - Select the Test Cookbook repo from the list of repos, then click Create Pipeline
