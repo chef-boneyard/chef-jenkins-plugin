@@ -14,14 +14,15 @@ import java.util.Set;
 /**
  * A simple echo back statement.
  */
-public class ChefCookbookUnitStep extends ChefCookbookStep {
+public class ChefCookbookPublishToChefServer extends ChefCookbookStep {
+
 
     @DataBoundConstructor
-    public ChefCookbookUnitStep() {}
+    public ChefCookbookPublishToChefServer() {}
 
     @Override
     public StepExecution start(StepContext context) throws Exception {
-        return new UnitExecution(context);
+        return new FunctionalExecution(context);
     }
 
     @Extension
@@ -29,12 +30,12 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
 
         @Override
         public String getFunctionName() {
-            return "chef_cookbook_unit";
+            return "chef_cookbook_publish";
         }
 
         @Override
         public String getDisplayName() {
-            return "Chef Cookbook Unit";
+            return "Chef Cookbook Publish to Chef Server";
         }
 
         @Override
@@ -43,17 +44,16 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
         }
     }
 
-    public static class UnitExecution extends ChefExecution {
+    public static class FunctionalExecution extends ChefExecution {
         
-//        String [] sCommands = { "chef exec rspec --format progress --format RspecJunitFormatter --out rspec_junit.xml" };
-
-         UnitExecution(StepContext context) {
+        FunctionalExecution(StepContext context) {
             super(context);
-            sCommands = new String [] { "chef exec rspec --format progress --format RspecJunitFormatter --out rspec_junit.xml" };
-        }
 
-        protected String []getCommands() {
-            return sCommands;
+            sCommands = new String [] {"chef exec knife ssl fetch", 
+                                        "chef exec knife ssl check",
+                                        "chef exec knife cookbook list",
+                                        "chef exec knife cookbook upload testjenkins"
+                                    };
         }
 
         private static final long serialVersionUID = 1L;

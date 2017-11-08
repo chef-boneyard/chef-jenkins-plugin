@@ -48,6 +48,7 @@ public class ChefCookbookFoodcriticStep extends ChefCookbookStep {
         
         FoodCriticExecution(StepContext context) {
             super(context);
+            sCommands = new String [] {"chef exec foodcritic ."};
         }
 
         protected String getCommandString() {

@@ -46,6 +46,7 @@ public class ChefCookbookCookstyleStep extends ChefCookbookStep {
 
         ChefCookbookCookstyleStepExecution(StepContext context) {
             super(context);
+            sCommands = new String [] {"chef exec cookstyle . --format progress"};
         }
 
         protected String getCommandString() {

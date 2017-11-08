@@ -48,6 +48,7 @@ public class ChefCookbookFunctionalStep extends ChefCookbookStep {
         
         FunctionalExecution(StepContext context) {
             super(context);
+            sCommands = new String [] {"chef exec kitchen test --concurrency=5 --destroy=always"};
         }
 
         protected String getCommandString() {
