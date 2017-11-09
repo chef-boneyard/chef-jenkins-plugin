@@ -64,7 +64,6 @@ public class ChefCookbookPublishToChefServer extends ChefCookbookStep {
         @Override
 		protected String[] getCommands() throws AbortException {
             String cookbook_name = parseCookbookName();
-            System.out.println("CB: " + cookbook_name);
 			return new String [] {
 	                "chef exec knife ssl fetch --server-url 'https://api.chef.io/organizations/jonmorrow'",
 	                "knife cookbook upload " + cookbook_name + " --cookbook-path .. --server-url 'https://api.chef.io/organizations/jonmorrow' --key /vagrant/.chef/jmorrow.pem --user jmorrow"
