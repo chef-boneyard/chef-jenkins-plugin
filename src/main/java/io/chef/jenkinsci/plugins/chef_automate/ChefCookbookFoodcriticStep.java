@@ -48,14 +48,14 @@ public class ChefCookbookFoodcriticStep extends ChefCookbookStep {
         
         FoodCriticExecution(StepContext context) {
             super(context);
-            sCommands = new String [] {"chef exec foodcritic ."};
-        }
-
-        protected String getCommandString() {
-            return "chef exec foodcritic .";
         }
 
         private static final long serialVersionUID = 1L;
+
+		@Override
+		protected String[] getCommands() {
+			return new String [] {"chef exec foodcritic ."};
+		}
     }
 
 }

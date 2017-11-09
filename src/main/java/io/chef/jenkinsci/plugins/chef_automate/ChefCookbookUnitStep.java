@@ -45,18 +45,16 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
 
     public static class UnitExecution extends ChefExecution {
         
-//        String [] sCommands = { "chef exec rspec --format progress --format RspecJunitFormatter --out rspec_junit.xml" };
-
          UnitExecution(StepContext context) {
             super(context);
-            sCommands = new String [] { "chef exec rspec --format progress --format RspecJunitFormatter --out rspec_junit.xml" };
-        }
-
-        protected String []getCommands() {
-            return sCommands;
         }
 
         private static final long serialVersionUID = 1L;
+
+		@Override
+		protected String[] getCommands() {
+			return new String [] { "chef exec rspec --format progress --format RspecJunitFormatter --out rspec_junit.xml" };
+		}
     }
 
 }

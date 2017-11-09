@@ -48,14 +48,14 @@ public class ChefCookbookFunctionalStep extends ChefCookbookStep {
         
         FunctionalExecution(StepContext context) {
             super(context);
-            sCommands = new String [] {"chef exec kitchen test --concurrency=5 --destroy=always"};
-        }
-
-        protected String getCommandString() {
-            return "chef exec kitchen test --concurrency=5 --destroy=always";
         }
 
         private static final long serialVersionUID = 1L;
+
+		@Override
+		protected String[] getCommands() {
+			return new String [] {"chef exec kitchen test --concurrency=5 --destroy=always"};
+		}
     }
 
 }

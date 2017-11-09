@@ -36,8 +36,7 @@ public abstract class ChefCookbookStep extends Step {
 
         @SuppressFBWarnings(value="SE_TRANSIENT_FIELD_NOT_RESTORED", justification="Only used when starting.")
 
-//        abstract protected String [] getCommands();
-        protected String [] sCommands = null;
+        abstract protected String [] getCommands() throws AbortException;
 
         ChefExecution(StepContext context) {
             super(context);
@@ -45,25 +44,18 @@ public abstract class ChefCookbookStep extends Step {
 
         @Override protected Void run() throws Exception {
 
-//            String []sCommArr = getCommands();
+            String []sCommArr = getCommands();
 
-            if (sCommands == null)
+            if (sCommArr == null || sCommArr.length == 0)
                 throw new AbortException("No command to issue");
 
-            for (String sCommand : sCommands)
+            for (String sCommand : sCommArr)
             {
-                System.out.println("Executing: [" + sCommand + "]...");
-
-                EnvVars envVars = new EnvVars();
-
-                String sCookbook = envVars.get("CookbookName");
-                System.out.println ("Cookbook is: " + sCookbook);
-
                 ArgumentListBuilder command = new ArgumentListBuilder();
                 command.addTokenized(sCommand);
 
                 StepContext context = getContext();
-                Launcher launcher =  getContext().get(Launcher.class);
+                Launcher launcher =  context.get(Launcher.class);
 
                 Launcher.ProcStarter p = launcher.launch()
                         .pwd(getContext().get(FilePath.class))

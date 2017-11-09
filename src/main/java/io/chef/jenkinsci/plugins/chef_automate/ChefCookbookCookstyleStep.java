@@ -44,13 +44,15 @@ public class ChefCookbookCookstyleStep extends ChefCookbookStep {
 
    public static class ChefCookbookCookstyleStepExecution extends ChefExecution  {
 
-        ChefCookbookCookstyleStepExecution(StepContext context) {
+      	private static final long serialVersionUID = 1L;
+
+		ChefCookbookCookstyleStepExecution(StepContext context) {
             super(context);
-            sCommands = new String [] {"chef exec cookstyle . --format progress"};
         }
 
-        protected String getCommandString() {
-            return "chef exec cookstyle . --format progress";
-        }
+		@Override
+		protected String[] getCommands() {
+			return new String [] {"chef exec cookstyle . --format progress"};
+		}
    }
 }
