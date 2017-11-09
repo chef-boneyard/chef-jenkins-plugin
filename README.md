@@ -7,6 +7,7 @@ The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines
 - Chef Cookbook Lint (Foodcritic)
 - Chef Cookbook Lint (Cookstyle)
 - Chef Cookbook Functional
+- Chef Cookbook Publish to Chef Server
 
 ## Prerequisites
 
