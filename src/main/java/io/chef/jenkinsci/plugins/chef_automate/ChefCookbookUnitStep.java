@@ -50,7 +50,7 @@ public class ChefCookbookUnitStep extends ChefCookbookStep {
         }
 
         protected String getCommandString() {
-            return "chef exec rspec --format progress --format RspecJunitFormatter --output rspec_junit.xml";
+            return "chef exec rspec --format progress --format RspecJunitFormatter --out rspec_junit.xml";
         }
 
         private static final long serialVersionUID = 1L;
