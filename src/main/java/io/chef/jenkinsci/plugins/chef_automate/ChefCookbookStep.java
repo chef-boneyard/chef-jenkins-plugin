@@ -49,7 +49,8 @@ public abstract class ChefCookbookStep extends Step {
             String sCommand = getCommandString();
             System.out.println("Executing: [" + sCommand + "]...");
 
-            ArgumentListBuilder command = new ArgumentListBuilder(sCommand);
+            ArgumentListBuilder command = new ArgumentListBuilder();
+            command.addTokenized(sCommand);
 
             Launcher launcher =  getContext().get(Launcher.class);
 
