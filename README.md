@@ -16,13 +16,12 @@ The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines
 - JDK 1.8+
 - [Github Personal Access Token](https://github.com/blog/1509-personal-api-tokens) for the user with which you plan to log into the Jenkins console. The token should have `user:email` rights as well as `repo` (full control of repos) if you hope to have the plugin integrate with your private repositories.
 
-## Setting up [kitchen-dokken](https://github.com/someara/kitchen-dokken)
+## Setting up [kitchen-docker](https://github.com/test-kitchen/kitchen-docker)
 
-Kitchen-dokken is a driver for Chef Test Kitchen which enables rapid testing of Chef cookbooks using Docker. The Chef Automate Plugin installs kitchen-dokken automatically, but these setup steps help get everything ready to go.
-
-Create a work area for kitchen-dokken: 
-
-```$ mkdir ~/.dokken```
+`kitchen-docker` is a driver for Chef Test Kitchen which enables rapid testing of Chef cookbooks using Docker. The Chef Automate Plugin uses this in the functional test phase and therefore
+currently assumes that you have a file in your cookbook
+called `.kitchen.docker.yml` that describes how to run the Test Kitchen suites you want under
+this driver.
 
 ## Installing the Chef Automate Plugin
 
