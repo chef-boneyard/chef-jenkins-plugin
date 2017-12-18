@@ -9,6 +9,8 @@ import org.jenkinsci.plugins.workflow.steps.StepExecution;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -52,6 +54,13 @@ public class ChefCookbookFunctionalStep extends ChefCookbookStep {
 
         protected String getCommandString() {
             return "chef exec kitchen test --concurrency=5 --destroy=always";
+        }
+
+        @Override
+        protected Map<String, String> getEnvironment() {
+            HashMap<String, String> hmap = new HashMap<String, String>();
+            hmap.put("KITCHEN_LOCAL_YAML", ".kitchen.docker.yml");
+            return hmap;
         }
 
         private static final long serialVersionUID = 1L;

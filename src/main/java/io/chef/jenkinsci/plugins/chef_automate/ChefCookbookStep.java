@@ -6,6 +6,8 @@ import hudson.Launcher;
 import hudson.AbortException;
 import hudson.model.TaskListener;
 import hudson.util.ArgumentListBuilder;
+import java.util.HashMap;
+import java.util.Map;
 import org.jenkinsci.plugins.workflow.steps.*;
 import org.kohsuke.stapler.DataBoundSetter;
 
@@ -38,6 +40,9 @@ public abstract class ChefCookbookStep extends Step {
 //        private transient final String installation;
 
         abstract protected String getCommandString();
+        protected Map<String, String> getEnvironment() {
+          return new HashMap<String, String>();
+        }
 
         ChefExecution(StepContext context) {
             super(context);
@@ -49,6 +54,8 @@ public abstract class ChefCookbookStep extends Step {
             String sCommand = getCommandString();
             System.out.println("Executing: [" + sCommand + "]...");
 
+            Map<String,String> envs = getEnvironment();
+
             ArgumentListBuilder command = new ArgumentListBuilder();
             command.addTokenized(sCommand);
 
@@ -57,6 +64,7 @@ public abstract class ChefCookbookStep extends Step {
             Launcher.ProcStarter p = launcher.launch()
                     .pwd(getContext().get(FilePath.class))
                     .cmds(command)
+                    .envs(envs)
                     .stdout(getContext().get(TaskListener.class));
 
             int iRetCode = p.join();

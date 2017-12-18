@@ -15,6 +15,7 @@
 	<packaging>hpi</packaging>
 
 	<name>Chef Automate Plugin</name>
+  <description>Integrate Chef Automate with Jenkins.</description>
 
 	<properties>
 		<jenkins.version>2.7.3</jenkins.version>
