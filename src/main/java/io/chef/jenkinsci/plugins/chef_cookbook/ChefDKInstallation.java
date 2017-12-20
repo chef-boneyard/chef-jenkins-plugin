@@ -1,4 +1,4 @@
-package io.chef.jenkinsci.plugins.chef_automate;
+package io.chef.jenkinsci.plugins.chef_cookbook;
 
 import java.io.IOException;
 import java.io.Serializable;
