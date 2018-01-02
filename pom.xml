@@ -10,12 +10,12 @@
 	</parent>
 
 	<groupId>io.chef.jenkins-ci.plugins</groupId>
-	<artifactId>chef-automate</artifactId>
+	<artifactId>chef-cookbook-pipeline</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 
-	<name>Chef Automate Plugin</name>
-  <description>Integrate Chef Automate with Jenkins.</description>
+	<name>Chef Cookbook Pipeline Plugin</name>
+  <description>Set up a pipeline for testing Chef cookbooks.</description>
 
 	<properties>
 		<jenkins.version>2.7.3</jenkins.version>
@@ -41,9 +41,9 @@
 			<version>1.2.4</version>
 		</dependency>
 		<dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-step-api</artifactId>
-            <version>${workflow-step-api-plugin.version}</version>
-        </dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-step-api</artifactId>
+      <version>${workflow-step-api-plugin.version}</version>
+    </dependency>
 	</dependencies>
 </project>

@@ -1,8 +1,8 @@
-# chef-automate-plugin
+# Chef Cookbook Pipeline Plugin for Jenkins
 
 ## Getting Started
 
-The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines for Chef cookbooks visually using Jenkins' Blue Ocean plugin. Currently the Chef Automate plugin has unit testing, linting, and functional testing capabilities using the following custom steps:
+The Chef Cookbook Pipeline Plugin for Jenkins makes it easy to build deployment pipelines for Chef cookbooks visually using Jenkins' Blue Ocean plugin. Currently the plugin has unit testing, linting, and functional testing capabilities using the following custom steps:
 - Chef Cookbook Unit
 - Chef Cookbook Lint (Foodcritic)
 - Chef Cookbook Lint (Cookstyle)
@@ -18,12 +18,12 @@ The Chef Automate Plugin for Jenkins makes it easy to build deployment pipelines
 
 ## Setting up [kitchen-docker](https://github.com/test-kitchen/kitchen-docker)
 
-`kitchen-docker` is a driver for Chef Test Kitchen which enables rapid testing of Chef cookbooks using Docker. The Chef Automate Plugin uses this in the functional test phase and therefore
+`kitchen-docker` is a driver for Chef Test Kitchen which enables rapid testing of Chef cookbooks using Docker. The plugin uses this in the functional test phase and therefore
 currently assumes that you have a file in your cookbook
 called `.kitchen.docker.yml` that describes how to run the Test Kitchen suites you want under
 this driver.
 
-## Installing the Chef Automate Plugin
+## Installing the Plugin
 
 While the plugin is in development, the easiest way to install and run it is via Maven using a local copy of the GitHub repository. Download the [repository](https://github.com/chef/chef-automate-plugin.git). You'll need the right Maven settings, so create a settings.xml file at ```~/.m2``` and add the following Jenkins profile. If you already have a settings.xml file, you only need to add the bits you're missing.
 
@@ -68,7 +68,7 @@ Build the plugin and run Jenkins:
 
 ```$ mvn -P jenkins -U hpi:run```
 
-This command will build the Chef Automate plugin and launch Jenkins with the plugin installed. Copy the temporary admin password at the tail end of the Maven output; you'll need it to log in to the Jenkins console.
+This command will build the plugin and launch Jenkins with the plugin installed. Copy the temporary admin password at the tail end of the Maven output; you'll need it to log in to the Jenkins console.
 
 Go to the Jenkins console [login screen](http://localhost:8080/jenkins). At the login prompt, log in as admin using the temporary admin password located in the Maven build/run output. Once you're logged in, you can either continue as admin or let Jenkins walk you through the creation of your first admin user. Either choice is fine, because in this scenario Jenkins will run as your own user regardless of which user you use to log in to the Jenkins console.
 
@@ -76,9 +76,9 @@ Install plugin runtime dependencies:
 
 Once you're logged in to the Jenkins console, install the Warnings Plug-in. Click Manage Jenkins on the left nav, then click Manage Plugins. Click the Available tab, then enter Warnings in the filter box just above the plugins list on the right. Click the checkbox next to Warnings Plug-in in the plugins list, then click Install Without Restart. When the plugin is installed, navigate back to the main Jenkins dashboard by clicking the Jenkins breadcrumb on the top left.
 
-## Chef Automate Plugin: ChefDK/Docker Scenario
+## ChefDK/Docker Scenario
 
-The Chef Automate Plugin supports different topologies, but the variation described here consists of a local standalone workstation running Docker and Jenkins as Jenkins master. To execute the test cookbook pipeline, Jenkins master spins up a Docker container running ChefDK as a Jenkins worker. The stages and steps of the pipeline invoke ChefDK operations which perform unit testing, linting (Foodcritic, Cookstyle), and functional testing (Test Kitchen) of Chef cookbooks. Test Kitchen spins up additional Docker containers as siblings to its own container in which to execute functional testing of cookbooks on different platforms.
+The plugin supports different topologies, but the variation described here consists of a local standalone workstation running Docker and Jenkins as Jenkins master. To execute the test cookbook pipeline, Jenkins master spins up a Docker container running ChefDK as a Jenkins worker. The stages and steps of the pipeline invoke ChefDK operations which perform unit testing, linting (Foodcritic, Cookstyle), and functional testing (Test Kitchen) of Chef cookbooks. Test Kitchen spins up additional Docker containers as siblings to its own container in which to execute functional testing of cookbooks on different platforms.
 
 ## Creating the Test Cookbook Pipeline
 
@@ -95,16 +95,10 @@ Blue Ocean will build and run the test cookbook pipeline for you. You should see
 
 # License
 
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Copyright (C) 2017 Chef Software Inc.
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+The terms of the Development Feedback Agreement (Chef Cookbook Pipeline
+Plugin for Jenkins) between Chef Software Inc. and the party accessing
+this file ("Licensee") apply to Licensee's use of the Software until such
+time that the Software is made available under an open source license such
+as the Apache 2.0 License.
