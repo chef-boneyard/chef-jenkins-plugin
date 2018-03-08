@@ -81,6 +81,10 @@
 						<inherited>false</inherited>
 					</execution>
 				</executions>
+				<configuration>
+					<releaseName>${project.version}</releaseName>
+					<tag>v${project.version}</tag>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
