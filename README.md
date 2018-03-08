@@ -15,7 +15,7 @@ The Chef Cookbook Pipeline Plugin for Jenkins makes it easy to build deployment 
 - A cookbook you want to test
 - A few files to put in your cookbook (These files are available on [Github Releases](https://github.com/chef/chef-jenkins-plugin/releases))
   * Dockerfile
-  * .kitchen.docker.yml
+  * dot-kitchen.docker.yml
   * Jenkinsfile to describe the pipeline itself
 
 ## Installing the Plugin
@@ -26,7 +26,7 @@ Once this is downloaded login to your Jenkins instance and navigate to manage pl
 
 ## Setting up your cookbook
 
-As mentioned in the prerequisites there are three files you will need to checkin to the root of your cookbook. The Dockerfile and Jenkinsfile can be used as is but you'll want to customize the .kitchen.docker.yml for the platforms and suites your cookbook uses.
+As mentioned in the prerequisites there are three files you will need to checkin to the root of your cookbook. The Dockerfile and Jenkinsfile can be used as is but you'll want to rename the dot-kitchen.docker.yml tp .kitchen.doecker.yml and customize it for the platforms and suites your cookbook uses.
 
 ## Creating the Cookbook Pipeline
 
@@ -87,7 +87,7 @@ Download the [repository](https://github.com/chef/chef-automate-plugin.git). You
 </settings>
 ```
 
-Build the plugin and run Jenkins:
+#### Build the plugin and run Jenkins:
 
 ```$ mvn -P jenkins -U hpi:run```
 
@@ -99,13 +99,37 @@ Install plugin runtime dependencies:
 
 Once you're logged in to the Jenkins console, install the Warnings Plug-in. Click Manage Jenkins on the left nav, then click Manage Plugins. Click the Available tab, then enter Warnings in the filter box just above the plugins list on the right. Click the checkbox next to Warnings Plug-in in the plugins list, then click Install Without Restart. When the plugin is installed, navigate back to the main Jenkins dashboard by clicking the Jenkins breadcrumb on the top left.
 
-## Build the plugin:
+#### Build the plugin package:
 
 ```$ mvn -P jenkins -U package```
 
-## Creating a release:
+## Release Prerequisites
 
-```$ mvn -P jenkins -U package```
+- [Github Personal Access Token](https://github.com/blog/1509-personal-api-tokens) with full control of repos.
+
+## Releasing the plugin:
+
+You'll need additional Maven settings, so update the settings.xml file at ```~/.m2``` and add the following server configuration.
+
+```
+<settings>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>GITHUB_USERNAME</username>
+      <privateKey>TOKEN_FROM_ABOVE</privateKey>
+    </server>
+  </servers>
+</settings>
+```
+
+Then run the following commands to package and publish to github releases:
+
+```
+$ mvn -P jenkins -U release:clean
+$ mvn -P jenkins -U --batch-mode release:prepare
+$ mvn -P jenkins -U release:perform
+```
 
 # License
 

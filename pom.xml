@@ -89,7 +89,7 @@
 						<fileSet>
 							<directory>${project.build.directory}/support</directory>
 							<includes>
-								<include>.kitchen.docker.yml</include>
+								<include>dot-kitchen.docker.yml</include>
 								<include>Dockerfile</include>
 								<include>Jenkinsfile</include>
 							</includes>
@@ -103,7 +103,7 @@
 				<directory>${project.basedir}/support</directory>
 				<targetPath>${project.build.directory}/support</targetPath>
 				<includes>
-					<include>.kitchen.docker.yml</include>
+					<include>dot-kitchen.docker.yml</include>
 					<include>Dockerfile</include>
 					<include>Jenkinsfile</include>
 				</includes>
