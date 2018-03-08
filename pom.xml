@@ -84,8 +84,30 @@
 				<configuration>
 					<releaseName>${project.version}</releaseName>
 					<tag>v${project.version}</tag>
+					<artifact>${project.build.directory}/${project.artifactId}.${project.packaging}</artifact>
+					<fileSets>
+						<fileSet>
+							<directory>${project.build.directory}/support</directory>
+							<includes>
+								<include>.kitchen.docker.yml</include>
+								<include>Dockerfile</include>
+								<include>Jenkinsfile</include>
+							</includes>
+						</fileSet>
+					</fileSets>
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/support</directory>
+				<targetPath>${project.build.directory}/support</targetPath>
+				<includes>
+					<include>.kitchen.docker.yml</include>
+					<include>Dockerfile</include>
+					<include>Jenkinsfile</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 </project>
