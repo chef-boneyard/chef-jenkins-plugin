@@ -24,8 +24,8 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:ssh://github.com/jenkinsci/chef-cookbook-pipeline-plugin.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/jenkinsci/chef-cookbook-pipeline-plugin.git</developerConnection>
+		<connection>scm:git:git@github.com:jenkinsci/chef-cookbook-pipeline-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:jenkinsci/chef-cookbook-pipeline-plugin.git</developerConnection>
 		<url>https://github.com/jenkinsci/chef-cookbook-pipeline-plugin</url>
 		<tag>HEAD</tag>
 	</scm>
