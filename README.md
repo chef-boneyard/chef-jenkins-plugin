@@ -28,7 +28,7 @@ Once this is downloaded login to your Jenkins instance and navigate to manage pl
 
 ## Setting up your cookbook
 
-As mentioned in the prerequisites there are three files you will need to checkin to the root of your cookbook. The Dockerfile and Jenkinsfile can be used as is but you'll want to rename the dot-kitchen.docker.yml tp .kitchen.doecker.yml and customize it for the platforms and suites your cookbook uses.
+As mentioned in the prerequisites there are three files you will need to checkin to the root of your cookbook. The Dockerfile and Jenkinsfile can be used as is but you'll want to rename the dot-kitchen.docker.yml to .kitchen.docker.yml and customize it for the platforms and suites your cookbook uses.
 
 ## Creating the Cookbook Pipeline
 
