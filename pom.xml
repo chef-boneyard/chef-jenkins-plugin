@@ -15,6 +15,7 @@
 
   <name>Chef Cookbook Pipeline Plugin</name>
   <description>Set up a pipeline for testing Chef cookbooks.</description>
+  <url>https://github.com/jenkinsci/chef-cookbook-pipeline-plugin</url>
   <licenses>
     <license>
       <name>Apache 2.0 Licence</name>
